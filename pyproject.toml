@@ -19,7 +19,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.9,<3.10"
 dependencies = [
     "accelerate>=0.29.1",
     "black>=24.1.0",
@@ -62,7 +62,6 @@ dependencies = [
     "Jinja2",
     "openpyxl",
     "loguru",
-    "hf_transfer",
     "tenacity>=8.3.0",
     "wandb>=0.16.0",
     "tiktoken",
@@ -75,6 +74,8 @@ dependencies = [
     "python-dotenv",
     "qwen-vl-utils>=0.0.14",
     "math-verify",
+    "flash-attn>=2.8.3",
+    "vllm>=0.10.1.1",
 ]
 
 [project.optional-dependencies]
@@ -195,4 +196,20 @@ Repository = "https://github.com/EvolvingLMMs-Lab/lmms-eval"
 dev = [
     "textual>=7.2.0",
     "textual-dev>=1.8.0",
+]
+
+[tool.uv]
+no-build-isolation-package = ["flash-attn"]
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[tool.uv.sources]
+torchvision = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torch = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
