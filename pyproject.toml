@@ -61,7 +61,6 @@ dependencies = [
     "Jinja2",
     "openpyxl",
     "loguru",
-    "hf_transfer",
     "tenacity>=8.3.0",
     "wandb==0.25.0",
     "tiktoken",
@@ -74,6 +73,8 @@ dependencies = [
     "python-dotenv",
     "qwen-vl-utils>=0.0.14",
     "math-verify",
+    "flash-attn>=2.8.3",
+    "vllm>=0.10.1.1",
 ]
 
 [project.optional-dependencies]
@@ -220,4 +221,20 @@ markers = [
 ]
 filterwarnings = [
     "ignore::DeprecationWarning",
+]
+
+[tool.uv]
+no-build-isolation-package = ["flash-attn"]
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[tool.uv.sources]
+torchvision = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torch = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
