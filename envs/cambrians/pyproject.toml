@@ -1,0 +1,94 @@
+[tool.black]
+line-length = 240
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lmms-eval-for-cambrians"
+version = "0.0.0"
+authors = [
+    { name = "akawincent", email = "liwenpu0520@gmail.com" },
+]
+description = "LMMS-Eval environment adapted for Cambrian-MLLM/Cambrians"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "setuptools",
+    "wheel",
+    "accelerate",
+    "black>=24.1.0",
+    "isort>=5.13.2",
+    "datasets>=2.19.0",
+    "evaluate>=0.4.0",
+    "httpx>=0.23.3",
+    "jsonlines",
+    "aiohttp",
+    "numexpr",
+    "numpy>=1.26.4",
+    "peft>=0.2.0",
+    "pybind11>=2.6.2",
+    "pytablewriter",
+    "sacrebleu>=1.5.0",
+    "scikit-learn>=0.24.1",
+    "sqlitedict>=2.1.0",
+    "torch==2.7.1", # to enable sdpa mode for running 34B model on one 80GB GPU
+    "torchvision==0.22.1",
+    "timm",
+    "einops",
+    "ftfy",
+    "openai",
+    "opencv-python-headless",
+    "av<16.0.0",
+    "hf_transfer",
+    "nltk",
+    "sentencepiece",
+    "yt-dlp",
+    "pycocoevalcap",
+    "tqdm-multiprocess",
+    "transformers",
+    "transformers-stream-generator",
+    "zstandard",
+    "pillow",
+    "pyyaml",
+    "sympy",
+    "latex2sympy2",
+    "mpmath",
+    "Jinja2",
+    "openpyxl",
+    "loguru",
+    "tenacity>=8.3.0",
+    "wandb>=0.16.0",
+    "tiktoken",
+    "pre-commit",
+    "pydantic",
+    "packaging",
+    "zss",
+    "protobuf",
+    "sentence_transformers",
+    "python-dotenv",
+    "qwen-vl-utils>=0.0.14",
+    "math-verify",
+    "numba>=0.57.0",    
+    "llvmlite>=0.40.0", 
+    "flash-attn",
+    "spacy",
+    "decord",
+    "cambrian @ git+https://github.com/cambrian-mllm/cambrian-s.git",
+]
+
+[tool.uv]
+no-build-isolation-package = ["flash-attn"]
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[tool.uv.sources]
+torchvision = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torch = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
