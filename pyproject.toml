@@ -74,7 +74,8 @@ dependencies = [
     "qwen-vl-utils>=0.0.14",
     "math-verify",
     "flash-attn>=2.8.3",
-    "vllm>=0.10.1.1",
+    "numba>=0.57.0",    
+    "llvmlite>=0.40.0", 
 ]
 
 [project.optional-dependencies]
