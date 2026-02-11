@@ -18,11 +18,11 @@
 
 📖 [Supported Tasks (100+)](https://github.com/EvolvingLMMs-Lab/lmms-eval/blob/main/docs/current_tasks.md) | 🌟 [Supported Models (30+)](https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/lmms_eval/models) | 📚 [Documentation](docs/README.md)
 
+🤝 [Contributing Guide](CONTRIBUTING.md) | ⚡ [Evaluate in 5 Minutes](docs/quickstart.md) | 🐛 [Issue Templates](.github/ISSUE_TEMPLATE)
+
 ---
 
 ## What's New
-
-Evaluating multimodal models is harder than it looks. We have hundreds of benchmarks, but no standard way to run them. Results vary between labs. Comparisons become unreliable. We've been working to address this - not through heroic effort, but through systematic process.
 
 **January 2026** - We recognized that spatial and compositional reasoning remained blind spots in existing benchmarks. We added [CaptionQA](https://captionqa.github.io/), [SpatialTreeBench](https://github.com/THUNLP-MT/SpatialTreeBench), [SiteBench](https://sitebench.github.io/), and [ViewSpatial](https://github.com/ViewSpatial/ViewSpatial). For teams running remote evaluation pipelines, we introduced an HTTP eval server (#972). For those who need statistical rigor, we added CLT and clustered standard error estimation (#989).
 
