@@ -74,8 +74,9 @@ dependencies = [
     "qwen-vl-utils>=0.0.14",
     "math-verify",
     "flash-attn>=2.8.3",
-    "numba>=0.57.0",    
-    "llvmlite>=0.40.0", 
+    "numba>=0.57.0",
+    "llvmlite>=0.40.0",
+    "torchcodec==0.5",
 ]
 
 [project.optional-dependencies]
@@ -224,6 +225,9 @@ filterwarnings = [
 
 [tool.uv]
 no-build-isolation-package = ["flash-attn"]
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
 
 [[tool.uv.index]]
 name = "pytorch-cu118"
