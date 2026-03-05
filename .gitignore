@@ -22,6 +22,11 @@ uv.lock
 .idea
 .vscode/
 .ipynb_checkpoints
+temp
+.DS_STORE
+.DS_Store
+._*
+# IPython
 profile_default/
 ipython_config.py
 
