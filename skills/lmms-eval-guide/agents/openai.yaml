@@ -1,0 +1,4 @@
+interface:
+  display_name: "LMMS-Eval Guide"
+  short_description: "Navigate lmms-eval development work safely"
+  default_prompt: "Use $lmms-eval-guide to navigate the lmms-eval repository and choose the right files, commands, and validation path."
