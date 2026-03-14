@@ -69,6 +69,7 @@ from lmms_eval.utils import (
     is_multimodal_content,
     positional_deprecated,
     run_task_tests,
+    sanitize_model_name,
     simple_parse_args_string,
 )
 
@@ -457,6 +458,9 @@ def simple_evaluate(
             chat_template=lm.chat_template if apply_chat_template else None,
             fewshot_as_multiturn=fewshot_as_multiturn,
         )
+        output_subdir = getattr(cli_args, "output_subdir", None) if cli_args is not None else None
+        if output_subdir:
+            evaluation_tracker.general_config_tracker.model_name_sanitized = sanitize_model_name(output_subdir, full_path=True)
 
     from lmms_eval.models.model_utils.gen_metrics import reset_logged_metrics
 
