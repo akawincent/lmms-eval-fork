@@ -50,7 +50,7 @@ dependencies = [
     "yt-dlp",
     "pycocoevalcap",
     "tqdm-multiprocess",
-    "transformers>=4.39.2",
+    "transformers==5.2.0",
     "transformers-stream-generator",
     "zstandard",
     "pillow",
@@ -79,6 +79,7 @@ dependencies = [
     "torchcodec==0.5",
     "huggingface-hub>=1.6.0",
     "hf-xet>=1.3.2",
+    "decord>=0.6.0",
 ]
 
 [project.optional-dependencies]
