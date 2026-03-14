@@ -1,0 +1,107 @@
+# Create this environment from the repo root with:
+#   UV_PROJECT_ENVIRONMENT=/run/determined/workdir/home/lmms-eval-fork/.venv-llava-ov-15 uv sync --project envs/llav_ov_15
+
+[tool.black]
+line-length = 240
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lmms-eval-for-llava-ov-15"
+version = "0.0.0"
+authors = [
+    { name = "akawincent", email = "liwenpu0520@gmail.com" },
+]
+description = "LMMS-Eval environment adapted for LLaVA-OneVision 1.5"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "setuptools",
+    "wheel",
+    "accelerate==1.9.0",
+    "black>=24.1.0",
+    "isort>=5.13.2",
+    "datasets==2.19.2",
+    "evaluate>=0.4.0",
+    "hydra-core==1.3.2",
+    "httpx>=0.23.3",
+    "jsonlines==4.0.0",
+    "aiohttp",
+    "megatron-energon==5.0.0",
+    "numexpr",
+    "numpy>=1.26.4",
+    "omegaconf==2.3.0",
+    "pandarallel==1.6.5",
+    "peft>=0.2.0",
+    "pybind11>=2.6.2",
+    "py-cpuinfo==9.0.0",
+    "pytablewriter",
+    "sacrebleu>=1.5.0",
+    "scikit-learn>=0.24.1",
+    "sqlitedict>=2.1.0",
+    "torch==2.7.1", # to enable sdpa mode for running large models on one 80GB GPU
+    "torchvision==0.22.1",
+    "timm==1.0.3",
+    "einops==0.6.0",
+    "ftfy==6.1.3",
+    "openai",
+    "opencv-python-headless",
+    "av<16.0.0",
+    "hf_transfer",
+    "nltk==3.9.1",
+    "sentencepiece==0.1.98",
+    "yt-dlp",
+    "pycocoevalcap",
+    "tqdm-multiprocess",
+    "transformers==4.53.1",
+    "transformers-stream-generator",
+    "zstandard",
+    "pillow",
+    "pyyaml",
+    "sympy",
+    "latex2sympy2",
+    "mpmath",
+    "Jinja2",
+    "openpyxl",
+    "loguru",
+    "tenacity>=8.3.0",
+    "wandb==0.21.0",
+    "tiktoken==0.5.2",
+    "pre-commit==3.2.2",
+    "pydantic",
+    "packaging",
+    "zss",
+    "protobuf==3.20.2",
+    "sentence_transformers",
+    "python-dotenv",
+    "qwen_vl_utils",
+    "math-verify",
+    "numba>=0.57.0",
+    "llvmlite>=0.40.0",
+    "flash-attn",
+    "spacy",
+    "decord",
+    "wrapt==1.16.0",
+    "torchcodec==0.5",
+]
+
+[tool.uv]
+package = false
+no-build-isolation-package = ["flash-attn"]
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true
+
+[tool.uv.sources]
+torchvision = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torch = [
+    { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
