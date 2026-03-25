@@ -5,7 +5,7 @@ set -euo pipefail
 export HOME="/run/determined/workdir/home/"
 export HF_HOME="/run/determined/workdir/home/.cache/huggingface"
 
-task_selector="${1:-${TASK_SELECTOR:-vsisuper_count}}"
+task_selector="${1:-${TASK_SELECTOR:-vsisuper_count_streaming}}"
 output_path="${OUTPUT_PATH:-logs}"
 model="${MODEL:-Cambrian-S-7B-LFP}"
 run_name_suffix="${RUN_NAME_SUFFIX:-_memory_design}"
@@ -17,11 +17,11 @@ SI_TOKEN_LEN="${SI_TOKEN_LEN:-729}"
 ENABLE_VISUAL_FEATURE_CACHING="${ENABLE_VISUAL_FEATURE_CACHING:-True}"
 VIDEO_MAX_FRAMES="${VIDEO_MAX_FRAMES:--1}"
 
-declare -a count_tasks=(
-    "vsisuper_count_10mins"
-    "vsisuper_count_30mins"
-    "vsisuper_count_60mins"
-    "vsisuper_count_120mins"
+declare -a count_streaming_tasks=(
+    "vsisuper_count_streaming_10mins"
+    "vsisuper_count_streaming_30mins"
+    "vsisuper_count_streaming_60mins"
+    "vsisuper_count_streaming_120mins"
 )
 
 if [[ -z "${CUDA_VISIBLE_DEVICES:-}" ]]; then
@@ -33,15 +33,15 @@ fi
 
 resolve_tasks() {
     case "$1" in
-        vsisuper_count)
-            printf "%s\n" "${count_tasks[@]}"
+        vsisuper_count_streaming)
+            printf "%s\n" "${count_streaming_tasks[@]}"
             ;;
-        vsisuper_count_10mins|vsisuper_count_30mins|vsisuper_count_60mins|vsisuper_count_120mins)
+        vsisuper_count_streaming_10mins|vsisuper_count_streaming_30mins|vsisuper_count_streaming_60mins|vsisuper_count_streaming_120mins)
             printf "%s\n" "$1"
             ;;
         *)
             echo "Unsupported task selector: $1" >&2
-            echo "Use vsisuper_count or one of: ${count_tasks[*]}" >&2
+            echo "Use vsisuper_count_streaming or one of: ${count_streaming_tasks[*]}" >&2
             exit 1
             ;;
     esac
@@ -49,11 +49,11 @@ resolve_tasks() {
 
 configure_task() {
     case "$1" in
-        vsisuper_count_10mins|vsisuper_count_30mins|vsisuper_count_60mins)
+        vsisuper_count_streaming_10mins|vsisuper_count_streaming_30mins|vsisuper_count_streaming_60mins)
             SENSORY_WINDOW_SIZE=128
             SURPRISE_THRESHOLD=0.39
             ;;
-        vsisuper_count_120mins)
+        vsisuper_count_streaming_120mins)
             SENSORY_WINDOW_SIZE=128
             SURPRISE_THRESHOLD=0.41
             ;;
@@ -82,8 +82,8 @@ run_task() {
     echo "  sensory_window_size=${SENSORY_WINDOW_SIZE}"
     echo "  surprise_threshold=${SURPRISE_THRESHOLD}"
 
-    accelerate launch --num_processes="${num_processes}" --main_process_port=12347 -m lmms_eval \
-        --model cambrians_vsc \
+    accelerate launch --num_processes="${num_processes}" --main_process_port=12348 -m lmms_eval \
+        --model cambrians_vsc_streaming \
         --force_simple \
         --model_args="${model_args}" \
         --tasks "${task}" \
